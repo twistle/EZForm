@@ -145,13 +145,11 @@
     UITextField *textField = (UITextField *)self.userControl;
     [textField removeTarget:self action:@selector(textFieldEditingChanged:) forControlEvents:UIControlEventEditingChanged];
     [textField removeTarget:self action:@selector(textFieldEditingDidEndOnExit:) forControlEvents:UIControlEventEditingDidEndOnExit];
-    if (textField.delegate == self) textField.delegate = nil;
 }
 
 - (void)unwireTextView
 {
     UITextView *textView = (UITextView *)self.userControl;
-    if (textView.delegate == self) textView.delegate = nil;
 }
 
 - (void)unwireUserControl
