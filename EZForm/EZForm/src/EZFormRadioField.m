@@ -123,8 +123,6 @@
 {
     if ([self.userView.inputView isKindOfClass:[UIPickerView class]]) {
 	UIPickerView *pickerView = (UIPickerView *)self.userView.inputView;
-	if (pickerView.dataSource == self) pickerView.dataSource = nil;
-	if (pickerView.delegate == self) pickerView.delegate = nil;
     }
     
     self.userView.inputView = nil;
