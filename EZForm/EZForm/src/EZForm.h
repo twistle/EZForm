@@ -37,9 +37,11 @@
 #import <Foundation/Foundation.h>
 #import "EZFormField.h"
 #import "EZFormBooleanField.h"
+#import "EZFormContinuousField.h"
 #import "EZFormGenericField.h"
 #import "EZFormRadioField.h"
 #import "EZFormMultiRadioFormField.h"
+#import "EZFormDateField.h"
 #import "EZFormTextField.h"
 #import "EZFormInputAccessoryViewProtocols.h"
 #import "EZFormCommonValidators.h"
@@ -49,7 +51,8 @@
 
 typedef enum : NSInteger {
     EZFormInputAccessoryTypeNone = 0,
-    EZFormInputAccessoryTypeStandard,
+    EZFormInputAccessoryTypeStandard, //done button on the right
+    EZFormInputAccessoryTypeStandardLeftAligned, //dont button on the left
 } EZFormInputAccessoryType;
 
 typedef enum : NSInteger {
@@ -93,6 +96,10 @@ typedef enum : NSInteger {
  *  By default, no input accessory is used.
  */
 @property (nonatomic, assign) EZFormInputAccessoryType inputAccessoryType;
+
+@property (nonatomic, strong) UIColor *inputAccessoryViewTintColor;
+@property (nonatomic, strong) UIColor *inputAccessoryViewBarTintColor NS_AVAILABLE_IOS(7_0);
+@property (nonatomic, assign) BOOL inputAccessoryViewTranslucent;   //defaults to YES
 
 /** Padding around field user views when auto scrolling is enabled.
  *
@@ -275,6 +282,17 @@ typedef enum : NSInteger {
  *  @param formField The form field for which editing began.
  */
 - (void)form:(EZForm *)form fieldDidBeginEditing:(EZFormField *)formField;
+
+/** Tells the delegate that editing ended for the specified field.
+ *
+ *  This method tells the delegate that the specified field resigned the first
+ *  responder.
+ *
+ *  @param form The form containing the field for which editing ended.
+ *
+ *  @param formField The form field for which editing end.
+ */
+- (void)form:(EZForm *)form fieldDidEndEditing:(EZFormField *)formField;
 
 /** Asks the delegate for the index path to the row containing the user view
  *  for the specified field.

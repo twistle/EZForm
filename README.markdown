@@ -162,9 +162,9 @@ To generate the document set using appledoc from the command-line, cd to the roo
 Requirements
 ------------
 
-EZForm is compatible with iOS 5 and upwards.  EZForm uses automatic reference counting (ARC).
+EZForm is compatible with iOS 6 and upwards.  EZForm uses automatic reference counting (ARC).
 
-The demo app included with the source requires iOS 5.
+The demo app included with the source requires iOS 6.
 
 
 ARC
@@ -195,6 +195,8 @@ EZForm has been used in these iOS projects:
 * "Locayta Notes" - <https://itunes.apple.com/au/app/locayta-notes/id393819477?mt=8>
 * "Coles App" - <https://itunes.apple.com/au/app/coles-app/id529118855?mt=8>
 * "SEEK - Jobs" - <https://itunes.apple.com/au/app/seek-jobs/id520400855?mt=8>
+* "realestate.com.au - Australia's No. 1 Real Estate Site" - <https://itunes.apple.com/au/app/realestate.com.au-australias/id404667893?mt=8>
+* "Beanhunter - Find and share great coffee" - <https://itunes.apple.com/au/app/beanhunter-find-share-great/id349940968?mt=8>
 * _Your app here - let us know_
 
 

@@ -420,6 +420,11 @@
     }
 }
 
+- (void)formFieldInputDidEnd:(EZFormField *)formField
+{
+    [self formFieldDidEndEditing:formField];
+}
+
 - (void)formFieldDidBeginEditing:(EZFormField *)formField
 {
     [self updateInputAccessoryForEditingFormField:formField];
@@ -430,17 +435,39 @@
     }
 }
 
+- (void)formFieldDidEndEditing:(EZFormField *)formField
+{
+    __strong id<EZFormDelegate> delegate = self.delegate;
+    if ([delegate respondsToSelector:@selector(form:fieldDidEndEditing:)]) {
+        [delegate form:self fieldDidEndEditing:formField];
+    }
+}
+
 
 #pragma mark - Input Accessories
 
 - (UIView *)inputAccessoryViewForType:(EZFormInputAccessoryType)type
 {
     UIView *inputAccessoryView = nil;
-    if (EZFormInputAccessoryTypeStandard == type) {
+    if (EZFormInputAccessoryTypeStandard == type || EZFormInputAccessoryTypeStandardLeftAligned == type) {
 	if (nil == self.inputAccessoryStandardView) {
 	    // Create and cache it
 	    // It will be resized automatically to match keyboard
 	    EZFormStandardInputAccessoryView *accessoryView = [[EZFormStandardInputAccessoryView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
+            if (self.inputAccessoryViewTintColor)
+            {
+                accessoryView.tintColor = self.inputAccessoryViewTintColor;
+            }
+
+            if ([accessoryView respondsToSelector:@selector(setBarTintColor:)] && self.inputAccessoryViewBarTintColor) {
+                accessoryView.barTintColor = self.inputAccessoryViewBarTintColor;
+            }
+
+            accessoryView.translucent = self.inputAccessoryViewTranslucent;
+
+            if (type == EZFormInputAccessoryTypeStandardLeftAligned) {
+                accessoryView.doneButtonPosition = EZFormStandardInputAccessoryViewDoneButtonPositionLeft;
+            }
 	    accessoryView.inputAccessoryViewDelegate = self;
 	    self.inputAccessoryStandardView = accessoryView;
 	}
@@ -561,6 +588,7 @@
 	_autoScrollForKeyboardInputPaddingSize = CGSizeMake(0.0f, 10.0f);
 	_autoScrollForKeyboardInputVisibleRect = CGRectZero;
 	_scrollViewInsetsWereSaved = NO;
+        _inputAccessoryViewTranslucent = YES;
 	
 	// Subscribe to keyboard visible notifications
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShowNotification:) name:UIKeyboardWillShowNotification object:nil];
