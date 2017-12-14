@@ -39,9 +39,12 @@ static NSString * const EZFDLoginFormUsernameKey = @"username";
 
 @implementation EZFDSimpleLoginFormViewController
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdouble-promotion"
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
     [self initializeForm];
 }
 
@@ -112,32 +115,6 @@ static NSString * const EZFDLoginFormUsernameKey = @"username";
     [self updateViewsForFormValidity];
 }
 
-- (void)viewDidUnload
-{
-    [self setLoginButton:nil];
-    [self setPasswordTextField:nil];
-    [self setUsernameTextField:nil];
-    
-    [self setLoginFormView:nil];
-    [self setInvalidIndicatorKeyView:nil];
-    [super viewDidUnload];
-    
-    /* Unwire (and release) all user views from the form fields.
-     */
-    [self.loginForm unwireUserViews];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-	return YES;
-    }
-    else {
-	return (interfaceOrientation == UIInterfaceOrientationPortrait);
-    }
-}
-
-
 #pragma mark - Login button status
 
 - (void)updateViewsForFormValidity
@@ -179,8 +156,12 @@ static NSString * const EZFDLoginFormUsernameKey = @"username";
 - (IBAction)loginAction:(id)sender
 {
     #pragma unused(sender)
-    
-    [[[UIAlertView alloc] initWithTitle:@"Success" message:nil delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil] show];
+
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Success" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
+
+#pragma clang diagnostic pop
 
 @end

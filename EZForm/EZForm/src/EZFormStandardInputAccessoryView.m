@@ -24,8 +24,6 @@
 
 #import "EZFormStandardInputAccessoryView.h"
 
-#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
-
 @interface EZFormStandardInputAccessoryView ()
 @property (nonatomic, strong) UISegmentedControl *previousNextControl;
 @property (nonatomic, strong) id prevNextItem;
@@ -88,11 +86,6 @@
         _previousNextControl = [[UISegmentedControl alloc] initWithItems:segmentTitles];
         _previousNextControl.momentary = YES;
         [_previousNextControl addTarget:self action:@selector(previousNextAction:) forControlEvents:UIControlEventValueChanged];
-
-        if (!SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-            //this is deprecated in iOS 7
-            _previousNextControl.segmentedControlStyle = UISegmentedControlStyleBar;
-        }
 
         self.doneItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneAction:)];
         self.flexibleSpaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];

@@ -151,7 +151,7 @@
 
 - (void)unwireTextView
 {
-    UITextView *textView = (UITextView *)self.userControl;
+    UITextView *textView = (UITextView *)self.userControl;(void)textView;
 }
 
 - (void)unwireUserControl

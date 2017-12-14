@@ -26,6 +26,8 @@
 #import <tgmath.h>
 
 @implementation EZFormInvalidIndicatorTriangleExclamationView
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdouble-promotion"
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -83,5 +85,6 @@
     CGContextSetFillColorWithColor(c, [UIColor blackColor].CGColor);
     CGContextFillPath(c);
 }
-
+#pragma clang diagnostic pop
 @end
+

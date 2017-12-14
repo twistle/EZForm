@@ -126,7 +126,7 @@
 - (void)unwireInputView
 {
     if ([self.userView.inputView isKindOfClass:[UIPickerView class]]) {
-	UIPickerView *pickerView = (UIPickerView *)self.userView.inputView;
+        UIPickerView *pickerView = (UIPickerView *)self.userView.inputView;(void)pickerView;
     }
     
     self.userView.inputView = nil;

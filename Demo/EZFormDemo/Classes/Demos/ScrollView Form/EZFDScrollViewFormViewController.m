@@ -46,6 +46,8 @@
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
+
     _form = [[EZForm alloc] init];
     _form.inputAccessoryType = EZFormInputAccessoryTypeStandard;
     _form.delegate = self;
